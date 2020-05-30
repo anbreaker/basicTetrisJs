@@ -67,3 +67,31 @@ function undraw() {
     squares[currentPosition + index].classList.remove('tetromino');
   });
 }
+
+// Make the tetromino move down every second
+timerId = setInterval(moveDown, 200);
+
+// Move Down
+function moveDown() {
+  undraw();
+  currentPosition += width;
+  draw();
+  freeze();
+}
+
+// Freeze tetromino
+function freeze() {
+  if (
+    current.some((index) =>
+      squares[currentPosition + index + width].classList.contains('taken')
+    )
+  ) {
+    current.forEach((index) => squares[currentPosition + index].classList.add('taken'));
+    // Start a new tetromino falling
+    random = Math.floor(Math.random() * theTetrominoes.length);
+    current = theTetrominoes[random][currentRotation];
+    currentPosition = 4;
+  }
+}
+
+// Move the tetromino left, unless is at the edge or there is a blockage
