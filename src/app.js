@@ -67,7 +67,3 @@ function undraw() {
     squares[currentPosition + index].classList.remove('tetromino');
   });
 }
-
-setTimeout(() => {
-  undraw();
-}, 2000);
