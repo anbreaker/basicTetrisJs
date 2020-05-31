@@ -94,4 +94,49 @@ function freeze() {
   }
 }
 
+// Assign functions to keyCodes
+function control(key) {
+  if (key.keyCode === 37) {
+    moveLeft();
+  } else if (key.keyCode === 38) {
+    //rotate
+  } else if (key.keyCode === 39) {
+    moveRight();
+  } else if (key.keyCode === 40) {
+    moveDown();
+  }
+}
+
+document.addEventListener('keyup', control);
+
 // Move the tetromino left, unless is at the edge or there is a blockage
+function moveLeft() {
+  undraw();
+  const isAtLeftEdge = current.some((index) => (currentPosition + index) % width === 0);
+
+  if (!isAtLeftEdge) currentPosition -= 1;
+
+  if (
+    current.some((index) => squares[currentPosition + index].classList.contains('taken'))
+  ) {
+    currentPosition += 1;
+  }
+  draw();
+}
+
+// Move the tetromino right, unless is at the edge or there is a blockage
+function moveRight() {
+  undraw();
+  const isAtRightEdge = current.some(
+    (index) => (currentPosition + index) % width === width - 1
+  );
+
+  if (!isAtRightEdge) currentPosition += 1;
+
+  if (
+    current.some((index) => squares[currentPosition + index].classList.contains('taken'))
+  ) {
+    currentPosition -= 1;
+  }
+  draw();
+}
